@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "pharmstagram-app",
+    "slug": "pharmstagram-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "pharmstagram-app"
+}
