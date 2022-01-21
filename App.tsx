@@ -1,24 +1,13 @@
 import React, { useState } from "react";
 import AppLoading from "expo-app-loading";
 import { useColorScheme } from "react-native";
-import styled, { ThemeProvider } from "styled-components/native";
+import { ThemeProvider } from "styled-components/native";
 import { darkTheme, lightTheme } from "./theme";
 import { Ionicons } from "@expo/vector-icons";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import LoggedOutNav from "./navigators/LoggedOutNav";
-
-const Container = styled.View`
-  background-color: ${(props) => props.theme.bgColor};
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Title = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-`;
 
 export default function App() {
   const [loading, setLoading] = useState(false);
@@ -46,8 +35,10 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <LoggedOutNav />
-    </NavigationContainer>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+      <NavigationContainer>
+        <LoggedOutNav />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }

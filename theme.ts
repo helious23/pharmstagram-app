@@ -1,11 +1,25 @@
 import { DefaultTheme } from "styled-components";
 
 export const darkTheme: DefaultTheme = {
-  bgColor: "black",
+  mainBgColor: "black",
   fontColor: "white",
+  btnFontColor: "white",
+  formBgColor: "rgba(255, 255, 255, 0.15)",
+  formBorderColor: "rgba(255, 255, 255, 0.15)",
+  formFontColor: "rgba(255, 255, 255, 0.6)",
+  BLUE: {
+    BLUE_0: "#0095f6",
+  },
 };
 
 export const lightTheme: DefaultTheme = {
-  bgColor: "skyblue",
+  mainBgColor: "white",
   fontColor: "black",
+  btnFontColor: "white",
+  formBgColor: "rgba(0, 0, 0, 0.15)",
+  formBorderColor: "rgba(0, 0, 0, 0.15)",
+  formFontColor: "rgba(0, 0, 0, 0.5)",
+  BLUE: {
+    BLUE_0: "#0095f6",
+  },
 };

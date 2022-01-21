@@ -3,7 +3,14 @@ import "styled-components";
 // and extend them!
 declare module "styled-components" {
   export interface DefaultTheme {
-    bgColor: string;
+    mainBgColor: string;
     fontColor: string;
+    btnFontColor: string;
+    formBgColor: string;
+    formBorderColor: string;
+    formFontColor: string;
+    BLUE: {
+      BLUE_0: string;
+    };
   }
 }
