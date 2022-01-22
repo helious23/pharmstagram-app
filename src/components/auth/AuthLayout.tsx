@@ -26,8 +26,8 @@ const AuthLayout: React.FC = ({ children }) => {
       <Container>
         <KeyboardAvoidingView
           style={{ width: "100%" }}
-          behavior="position"
-          keyboardVerticalOffset={Platform.OS === "ios" ? 50 : 0}
+          behavior="padding"
+          keyboardVerticalOffset={Platform.OS === "ios" ? 200 : 0}
         >
           <Logo
             resizeMode="contain"

@@ -52,6 +52,13 @@
 		<key>UIStatusBarStyle</key>
 		<string>UIStatusBarStyleDefault</string>
 		<key>CFBundleURLTypes</key>
-		<array/>
+		<array>
+			<dict>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>exp</string>
+				</array>
+			</dict>
+		</array>
 	</dict>
 </plist>

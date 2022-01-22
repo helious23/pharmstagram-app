@@ -22,7 +22,12 @@ const Welcome: React.FC<
 
   return (
     <AuthLayout>
-      <AuthBtn disabled={false} text="회원 가입" onPress={goToCreateAccount} />
+      <AuthBtn
+        loading={false}
+        disabled={false}
+        text="회원 가입"
+        onPress={goToCreateAccount}
+      />
       <TouchableOpacity onPress={goToLogin}>
         <LoginLink>로그인</LoginLink>
       </TouchableOpacity>

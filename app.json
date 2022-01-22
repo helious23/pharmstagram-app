@@ -10,5 +10,6 @@
       "bundleIdentifier": "org.name.pharmstagramapp"
     }
   },
-  "name": "pharmstagram-app"
+  "name": "pharmstagram-app",
+  "displayName":"pharmstagram-app"
 }

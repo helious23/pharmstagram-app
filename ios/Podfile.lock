@@ -89,6 +89,13 @@ PODS:
   - EXSplashScreen (0.14.1):
     - ExpoModulesCore
     - React-Core
+  - EXStructuredHeaders (2.1.0)
+  - EXUpdates (0.11.5):
+    - EXManifests
+    - ExpoModulesCore
+    - EXStructuredHeaders
+    - EXUpdatesInterface
+    - React-Core
   - EXUpdatesInterface (0.5.0)
   - FBLazyVector (0.64.3)
   - FBReactNativeSpec (0.64.3):
@@ -379,6 +386,8 @@ DEPENDENCIES:
   - expo-dev-menu-interface (from `../node_modules/expo-dev-menu-interface/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core/ios`)
   - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
+  - EXStructuredHeaders (from `../node_modules/expo-structured-headers/ios`)
+  - EXUpdates (from `../node_modules/expo-updates/ios`)
   - EXUpdatesInterface (from `../node_modules/expo-updates-interface/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
@@ -447,6 +456,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-modules-core/ios"
   EXSplashScreen:
     :path: "../node_modules/expo-splash-screen/ios"
+  EXStructuredHeaders:
+    :path: "../node_modules/expo-structured-headers/ios"
+  EXUpdates:
+    :path: "../node_modules/expo-updates/ios"
   EXUpdatesInterface:
     :path: "../node_modules/expo-updates-interface/ios"
   FBLazyVector:
@@ -525,6 +538,8 @@ SPEC CHECKSUMS:
   expo-dev-menu-interface: 079a8f8d740ef2e3cf62f051c87a1b95bce7a371
   ExpoModulesCore: 64abda7af7cf659d2fa092934e29c6f4ea7e849f
   EXSplashScreen: 7872675b95bb07c25f922b3d3dfae70c76fb5a00
+  EXStructuredHeaders: 2ce79a3770bd3795bade1aab215ada70deae8bbc
+  EXUpdates: 3a24c507f8e444d7c451cb5aebbb2aad0266664c
   EXUpdatesInterface: f459b515151bd73fff7a35366eace34a6c6a0d3f
   FBLazyVector: c71c5917ec0ad2de41d5d06a5855f6d5eda06971
   FBReactNativeSpec: f2a567370df185948b2ecff9dcb57e676190b7a5
@@ -556,6 +571,6 @@ SPEC CHECKSUMS:
   RNScreens: d6da2b9e29cf523832c2542f47bf1287318b1868
   Yoga: e6ecf3fa25af9d4c87e94ad7d5d292eedef49749
 
-PODFILE CHECKSUM: c97619c75452f039150fb987e4c4285fdfd5e036
+PODFILE CHECKSUM: 4721a14154e0e53609bcc395917abdc644681393
 
 COCOAPODS: 1.11.2

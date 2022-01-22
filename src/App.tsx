@@ -8,6 +8,8 @@ import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import LoggedOutNav from "./navigators/LoggedOutNav";
+import { ApolloProvider } from "@apollo/client";
+import client from "./apollo";
 
 export default function App() {
   const [loading, setLoading] = useState(false);
@@ -35,10 +37,12 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <NavigationContainer>
-        <LoggedOutNav />
-      </NavigationContainer>
-    </ThemeProvider>
+    <ApolloProvider client={client}>
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <NavigationContainer>
+          <LoggedOutNav />
+        </NavigationContainer>
+      </ThemeProvider>
+    </ApolloProvider>
   );
 }
