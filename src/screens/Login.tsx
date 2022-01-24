@@ -1,12 +1,16 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { RefObject, useEffect, useRef } from "react";
+import React, { RefObject, useRef } from "react";
 import { TextInput, View } from "react-native";
 import { LoggedOutNavParamList } from "../navTypes";
 import AuthLayout from "../components/auth/AuthLayout";
 import { AuthPlaceholder, STextInput } from "../components/auth/AuthShared";
 import AuthBtn from "../components/auth/AuthBtn";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { gql } from "@apollo/client";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
+import { gql, useMutation } from "@apollo/client";
+import { login, loginVariables } from "../__generated__/login";
+import { logUserIn } from "../apollo";
+import FormError from "../components/auth/FormError";
+import Notification from "../components/auth/Notification";
 
 const LOGIN_MUTATION = gql`
   mutation login($username: String!, $password: String!) {
@@ -21,67 +25,136 @@ const LOGIN_MUTATION = gql`
 interface ILoginForm {
   username: string;
   password: string;
+  result?: string;
 }
 
 const Login: React.FC<NativeStackScreenProps<LoggedOutNavParamList, "Login">> =
-  ({ navigation }) => {
-    const { register, handleSubmit, setValue, watch, formState } =
-      useForm<ILoginForm>();
+  ({ route: { params } }) => {
+    const { handleSubmit, formState, watch, control, setError, clearErrors } =
+      useForm<ILoginForm>({
+        mode: "onChange",
+        defaultValues: {
+          username: params?.username,
+          password: params?.password,
+        },
+      });
+
     const passwordRef = useRef(null);
     const onNext = (nextRef: RefObject<TextInput>) => {
       nextRef?.current?.focus();
     };
-    const onValid: SubmitHandler<ILoginForm> = (data) => {
-      console.log(data);
+
+    const [logInMutation, { loading }] = useMutation<login, loginVariables>(
+      LOGIN_MUTATION
+    );
+
+    const onCompleted = async (data: login) => {
+      const {
+        login: { ok, error, token },
+      } = data;
+      if (error) {
+        return setError("result", {
+          message: error,
+        });
+      }
+      if (ok && token) {
+        await logUserIn(token);
+      }
     };
 
-    useEffect(() => {
-      register("username", { required: true });
-      register("password", {
-        required: true,
-        minLength: {
-          value: 4,
-          message: "비밀번호는 4글자 이상입니다.",
-        },
-      });
-    }, [register]);
+    const onValid: SubmitHandler<ILoginForm> = ({ username, password }) => {
+      if (loading) {
+        return;
+      } else {
+        logInMutation({
+          variables: { username, password },
+          onCompleted,
+        });
+      }
+    };
+
+    const clearLoginError = () => {
+      if (formState.errors.result) {
+        clearErrors("result");
+      }
+    };
 
     return (
       <AuthLayout>
+        <Notification message={params?.message} />
         <View>
-          <STextInput
-            blurOnSubmit={false}
-            change={Boolean(watch("username"))}
-            returnKeyType="next"
-            autoCapitalize="none"
-            autoCorrect={false}
-            onChangeText={(text) => setValue("username", text)}
-            onSubmitEditing={() => onNext(passwordRef)}
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onBlur, onChange, value } }) => (
+              <View>
+                <STextInput
+                  blurOnSubmit={false}
+                  change={Boolean(watch("username"))}
+                  returnKeyType="next"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  onBlur={onBlur}
+                  onChange={clearLoginError}
+                  onChangeText={onChange}
+                  value={value}
+                  onSubmitEditing={() => onNext(passwordRef)}
+                  hasError={Boolean(formState?.errors?.username?.message)}
+                />
+                <FormError message={formState?.errors?.username?.message} />
+              </View>
+            )}
+            name="username"
           />
+
           <AuthPlaceholder change={Boolean(watch("username"))}>
             사용자 이름
           </AuthPlaceholder>
         </View>
         <View>
-          <STextInput
-            change={Boolean(watch("password"))}
-            ref={passwordRef}
-            secureTextEntry
-            returnKeyType="done"
-            lastOne={true}
-            onChangeText={(text) => setValue("password", text)}
-            onSubmitEditing={handleSubmit(onValid)}
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+              minLength: {
+                value: 4,
+                message: "비밀번호는 4글자 이상입니다.",
+              },
+            }}
+            render={({ field: { onBlur, onChange, value } }) => (
+              <View>
+                <STextInput
+                  blurOnSubmit={false}
+                  ref={passwordRef}
+                  change={Boolean(watch("password"))}
+                  returnKeyType="done"
+                  secureTextEntry
+                  onBlur={onBlur}
+                  onChange={clearLoginError}
+                  onChangeText={onChange}
+                  value={value}
+                  lastOne={true}
+                  onSubmitEditing={handleSubmit(onValid)}
+                  hasError={Boolean(formState?.errors?.password?.message)}
+                />
+                <FormError message={formState?.errors?.password?.message} />
+              </View>
+            )}
+            name="password"
           />
           <AuthPlaceholder change={Boolean(watch("password"))}>
             비밀번호
           </AuthPlaceholder>
         </View>
         <AuthBtn
-          loading={false}
+          loading={loading}
           text="로그인"
-          disabled={!watch("username") || !watch("password")}
+          disabled={!formState.isValid || loading}
           onPress={handleSubmit(onValid)}
         />
+        <FormError message={formState?.errors?.result?.message} />
       </AuthLayout>
     );
   };

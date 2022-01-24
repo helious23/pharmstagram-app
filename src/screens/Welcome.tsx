@@ -25,7 +25,7 @@ const Welcome: React.FC<
       <AuthBtn
         loading={false}
         disabled={false}
-        text="회원 가입"
+        text="새 계정 만들기"
         onPress={goToCreateAccount}
       />
       <TouchableOpacity onPress={goToLogin}>
