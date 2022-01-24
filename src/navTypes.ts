@@ -9,3 +9,11 @@ export type LoggedOutNavParamList = {
     | undefined;
   CreateAccount: undefined;
 };
+
+export type LoggedInNavParamList = {
+  Feed: undefined;
+  Search: undefined;
+  Camera: undefined;
+  Notification: undefined;
+  Profile: undefined;
+};

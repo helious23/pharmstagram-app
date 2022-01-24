@@ -9,6 +9,8 @@ declare module "styled-components" {
     formBgColor: string;
     formBorderColor: string;
     formFontColor: string;
+    tabBarBtnColor: string;
+    tabBarBrodrColor: string;
     BLUE: {
       BLUE_0: string;
     };
