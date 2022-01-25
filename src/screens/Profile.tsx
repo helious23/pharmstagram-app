@@ -1,7 +1,11 @@
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useTheme } from "styled-components/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { StacknavFactoryParamList } from "../navTypes";
 
-const Profile = () => {
+const Profile: React.FC<
+  NativeStackScreenProps<StacknavFactoryParamList, "Profile">
+> = ({ navigation }) => {
   const theme = useTheme();
   return (
     <View
@@ -12,7 +16,9 @@ const Profile = () => {
         justifyContent: "center",
       }}
     >
-      <Text style={{ color: theme.fontColor }}>Profile</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("Photo")}>
+        <Text style={{ color: theme.fontColor }}>GO TO PHOTO</Text>
+      </TouchableOpacity>
     </View>
   );
 };

@@ -1,7 +1,11 @@
-import { Text, View } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import { useTheme } from "styled-components/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { ShareStackNavParamList } from "../navTypes";
 
-const Search = () => {
+const Search: React.FC<
+  NativeStackScreenProps<ShareStackNavParamList, "Search">
+> = ({ navigation }) => {
   const theme = useTheme();
   return (
     <View
@@ -12,7 +16,9 @@ const Search = () => {
         justifyContent: "center",
       }}
     >
-      <Text style={{ color: theme.fontColor }}>Search</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("Photo")}>
+        <Text style={{ color: theme.fontColor }}>GO TO PHOTO</Text>
+      </TouchableOpacity>
     </View>
   );
 };

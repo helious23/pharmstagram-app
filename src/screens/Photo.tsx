@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { useTheme } from "styled-components/native";
 import { ShareStackNavParamList } from "../navTypes";
 
-const Feed: React.FC<NativeStackScreenProps<ShareStackNavParamList, "Feed">> =
+const Photo: React.FC<NativeStackScreenProps<ShareStackNavParamList, "Photo">> =
   ({ navigation }) => {
     const theme = useTheme();
     return (
@@ -15,11 +15,11 @@ const Feed: React.FC<NativeStackScreenProps<ShareStackNavParamList, "Feed">> =
           justifyContent: "center",
         }}
       >
-        <TouchableOpacity onPress={() => navigation.navigate("Photo")}>
-          <Text style={{ color: theme.fontColor }}>GO TO PHOTO</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+          <Text style={{ color: theme.fontColor }}>GO TO Profile</Text>
         </TouchableOpacity>
       </View>
     );
   };
 
-export default Feed;
+export default Photo;

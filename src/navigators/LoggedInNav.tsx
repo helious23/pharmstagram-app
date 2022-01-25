@@ -1,13 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
-import Feed from "../screens/Feed";
 import { ThemeConsumer } from "styled-components/native";
-import Search from "../screens/Search";
-import Notification from "../screens/Notifications";
-import Profile from "../screens/Profile";
 import { LoggedInNavParamList } from "../navTypes";
 import { View } from "react-native";
 import TabIcon from "../components/nav/TabIcon";
+import StackNavFactory from "./ShareStackNav";
 
 const Tabs = createBottomTabNavigator<LoggedInNavParamList>();
 
@@ -27,8 +23,7 @@ const LoggedInNav = () => {
           }}
         >
           <Tabs.Screen
-            name="Feed"
-            component={Feed}
+            name="TabFeed"
             options={{
               tabBarIcon: ({ color, focused, size }) => (
                 <TabIcon
@@ -40,10 +35,11 @@ const LoggedInNav = () => {
                 />
               ),
             }}
-          />
+          >
+            {() => <StackNavFactory screenName="Feed" />}
+          </Tabs.Screen>
           <Tabs.Screen
-            name="Search"
-            component={Search}
+            name="TabSearch"
             options={{
               tabBarIcon: ({ color, focused, size }) => (
                 <TabIcon
@@ -55,7 +51,9 @@ const LoggedInNav = () => {
                 />
               ),
             }}
-          />
+          >
+            {() => <StackNavFactory screenName="Search" />}
+          </Tabs.Screen>
 
           <Tabs.Screen
             name="Camera"
@@ -74,8 +72,7 @@ const LoggedInNav = () => {
           />
 
           <Tabs.Screen
-            name="Notification"
-            component={Notification}
+            name="TabNotifications"
             options={{
               tabBarIcon: ({ color, focused, size }) => (
                 <TabIcon
@@ -87,10 +84,11 @@ const LoggedInNav = () => {
                 />
               ),
             }}
-          />
+          >
+            {() => <StackNavFactory screenName="Notifications" />}
+          </Tabs.Screen>
           <Tabs.Screen
-            name="Profile"
-            component={Profile}
+            name="TabMe"
             options={{
               tabBarIcon: ({ color, focused, size }) => (
                 <TabIcon
@@ -102,7 +100,9 @@ const LoggedInNav = () => {
                 />
               ),
             }}
-          />
+          >
+            {() => <StackNavFactory screenName="Me" />}
+          </Tabs.Screen>
         </Tabs.Navigator>
       )}
     </ThemeConsumer>
