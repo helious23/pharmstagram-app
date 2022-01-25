@@ -9,6 +9,7 @@ export const darkTheme: DefaultTheme = {
   formFontColor: "rgba(255, 255, 255, 0.6)",
   tabBarBtnColor: "white",
   tabBarBrodrColor: "rgba(255, 255, 255, 0.5)",
+  likeHeartColor: "tomato",
   BLUE: {
     BLUE_0: "#0095f6",
   },
@@ -23,6 +24,7 @@ export const lightTheme: DefaultTheme = {
   formFontColor: "rgba(0, 0, 0, 0.5)",
   tabBarBtnColor: "black",
   tabBarBrodrColor: "rgba(0, 0, 0, 0.5)",
+  likeHeartColor: "tomato",
   BLUE: {
     BLUE_0: "#0095f6",
   },

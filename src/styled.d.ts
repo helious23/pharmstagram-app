@@ -11,6 +11,7 @@ declare module "styled-components" {
     formFontColor: string;
     tabBarBtnColor: string;
     tabBarBrodrColor: string;
+    likeHeartColor: string;
     BLUE: {
       BLUE_0: string;
     };

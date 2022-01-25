@@ -1,10 +1,10 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { useTheme } from "styled-components/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { StacknavFactoryParamList } from "../navTypes";
+import { ShareStackNavParamList } from "../navTypes";
 
 const Profile: React.FC<
-  NativeStackScreenProps<StacknavFactoryParamList, "Profile">
+  NativeStackScreenProps<ShareStackNavParamList, "Profile">
 > = ({ navigation }) => {
   const theme = useTheme();
   return (
@@ -16,9 +16,7 @@ const Profile: React.FC<
         justifyContent: "center",
       }}
     >
-      <TouchableOpacity onPress={() => navigation.navigate("Photo")}>
-        <Text style={{ color: theme.fontColor }}>GO TO PHOTO</Text>
-      </TouchableOpacity>
+      <Text style={{ color: theme.fontColor }}>Someone's Profile</Text>
     </View>
   );
 };

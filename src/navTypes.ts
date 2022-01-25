@@ -25,4 +25,6 @@ export type ShareStackNavParamList = {
   Me: undefined;
   Profile: undefined;
   Photo: undefined;
+  Likes: undefined;
+  Comments: undefined;
 };
