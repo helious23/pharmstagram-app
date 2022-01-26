@@ -7,6 +7,23 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ShareStackNavParamList } from "../navTypes";
 import { Ionicons } from "@expo/vector-icons";
+import {
+  ApolloCache,
+  DefaultContext,
+  gql,
+  MutationUpdaterFunction,
+  useMutation,
+} from "@apollo/client";
+import { toggleLike, toggleLikeVariables } from "../__generated__/toggleLike";
+
+const TOGGLE_LIKE_MUTATION = gql`
+  mutation toggleLike($id: Int!) {
+    toggleLike(id: $id) {
+      ok
+      error
+    }
+  }
+`;
 
 const Container = styled.View``;
 const Header = styled.TouchableOpacity`
@@ -105,6 +122,50 @@ const Photo: React.FC<seeFeed_seeFeed> = ({
       }
     });
   }, [file]);
+
+  const updateToggleLike: MutationUpdaterFunction<
+    toggleLike,
+    toggleLikeVariables,
+    DefaultContext,
+    ApolloCache<any>
+  > = (cache, result) => {
+    if (result.data) {
+      const {
+        data: {
+          toggleLike: { ok },
+        },
+      } = result;
+      if (ok) {
+        const photoId = `Photo:${id}`;
+        cache.modify({
+          id: photoId,
+          fields: {
+            isLiked(prev) {
+              return !prev;
+            },
+            likes(prev, { readField }) {
+              if (readField("isLiked")) {
+                return prev - 1;
+              } else {
+                return prev + 1;
+              }
+            },
+          },
+        });
+      }
+    }
+  };
+
+  const [toggleLikeMutation] = useMutation<toggleLike, toggleLikeVariables>(
+    TOGGLE_LIKE_MUTATION,
+    {
+      variables: {
+        id,
+      },
+      update: updateToggleLike,
+    }
+  );
+
   return (
     <Container key={id}>
       <Header onPress={() => navigation.navigate("Profile")}>
@@ -129,7 +190,7 @@ const Photo: React.FC<seeFeed_seeFeed> = ({
       )}
       <PhotoData>
         <Actions>
-          <Action>
+          <Action onPress={() => toggleLikeMutation()}>
             <Ionicons
               name={isLiked ? "heart" : "heart-outline"}
               size={30}
@@ -189,9 +250,7 @@ const Photo: React.FC<seeFeed_seeFeed> = ({
             )
           ) : likes > 0 ? (
             <LikeCounter>좋아요 {likes}개</LikeCounter>
-          ) : (
-            ""
-          )}
+          ) : null}
         </Likes>
         <Caption>
           <TouchableOpacity onPress={() => navigation.navigate("Profile")}>

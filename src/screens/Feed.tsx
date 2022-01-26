@@ -1,6 +1,6 @@
 import { useQuery, gql } from "@apollo/client";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FlatList, View } from "react-native";
 import Photo from "../components/Photo";
 import ScreenLayout from "../components/ScreenLayout";
@@ -38,11 +38,12 @@ export const FEED_QUERY = gql`
 
 const Feed: React.FC<NativeStackScreenProps<ShareStackNavParamList, "Feed">> =
   () => {
-    const { data, loading, refetch } = useQuery<seeFeed, seeFeedVariables>(
-      FEED_QUERY,
-      {}
-    );
+    const [lastId, setLastId] = useState<number>();
     const [refreshing, setRefreshing] = useState(false);
+    const { data, loading, refetch, fetchMore } = useQuery<
+      seeFeed,
+      seeFeedVariables
+    >(FEED_QUERY);
 
     const refresh = async () => {
       try {
@@ -63,6 +64,15 @@ const Feed: React.FC<NativeStackScreenProps<ShareStackNavParamList, "Feed">> =
         <FlatList
           refreshing={refreshing}
           onRefresh={refresh}
+          onEndReachedThreshold={1}
+          onEndReached={() =>
+            fetchMore({
+              variables: {
+                lastId:
+                  data?.seeFeed && data?.seeFeed[data?.seeFeed?.length - 1]?.id,
+              },
+            })
+          }
           data={data?.seeFeed}
           showsVerticalScrollIndicator={false}
           keyExtractor={(photo) => photo?.id + ""}
