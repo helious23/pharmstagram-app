@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Photo from "../screens/Photo";
+import Photo from "../screens/PhotoDetail";
 import Profile from "../screens/Profile";
 import { ShareStackNavParamList } from "../navTypes";
 import Feed from "../screens/Feed";

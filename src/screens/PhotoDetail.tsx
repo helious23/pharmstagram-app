@@ -14,11 +14,7 @@ const Photo: React.FC<NativeStackScreenProps<ShareStackNavParamList, "Photo">> =
           alignItems: "center",
           justifyContent: "center",
         }}
-      >
-        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-          <Text style={{ color: theme.fontColor }}>GO TO Profile</Text>
-        </TouchableOpacity>
-      </View>
+      ></View>
     );
   };
 

@@ -1,12 +1,10 @@
 export type LoggedOutNavParamList = {
   Welcome: undefined;
-  Login:
-    | {
-        username: string;
-        password: string;
-        message: string;
-      }
-    | undefined;
+  Login: {
+    username: string;
+    password: string;
+    message: string;
+  };
   CreateAccount: undefined;
 };
 
@@ -23,8 +21,11 @@ export type ShareStackNavParamList = {
   Search: undefined;
   Notifications: undefined;
   Me: undefined;
-  Profile: undefined;
+  Profile: {
+    username: string;
+    id: number;
+  };
   Photo: undefined;
-  Likes: undefined;
+  Likes: { photoId: number };
   Comments: undefined;
 };

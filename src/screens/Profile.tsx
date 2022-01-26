@@ -5,7 +5,8 @@ import { ShareStackNavParamList } from "../navTypes";
 
 const Profile: React.FC<
   NativeStackScreenProps<ShareStackNavParamList, "Profile">
-> = ({ navigation }) => {
+> = ({ route }) => {
+  console.log(route);
   const theme = useTheme();
   return (
     <View

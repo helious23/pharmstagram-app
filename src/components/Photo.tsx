@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { Dimensions, Image, Text, View, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
@@ -15,6 +16,8 @@ import {
   useMutation,
 } from "@apollo/client";
 import { toggleLike, toggleLikeVariables } from "../__generated__/toggleLike";
+import DefaultAvatar from "./DefaultAvatar";
+import Avatar from "./Avatar";
 
 const TOGGLE_LIKE_MUTATION = gql`
   mutation toggleLike($id: Int!) {
@@ -30,22 +33,6 @@ const Header = styled.TouchableOpacity`
   padding: 10px;
   flex-direction: row;
   align-items: center;
-`;
-const UserAvatar = styled.Image`
-  margin-right: 10px;
-  width: 25px;
-  height: 25px;
-  border-radius: 12.5px;
-`;
-
-const DefaultAvatar = styled.View`
-  background-color: ${(props) => props.theme.formBorderColor};
-  width: 25px;
-  height: 25px;
-  border-radius: 12.5px;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
 `;
 
 const Username = styled.Text`
@@ -92,8 +79,22 @@ const Caption = styled.View`
   align-items: center;
   margin-top: 10px;
 `;
-const CaptionText = styled.Text`
+const CaptionText = styled.View`
   margin-left: 10px;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const HashTag = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+`;
+
+const HashTagText = styled.Text`
+  color: ${(props) => props.theme.BLUE.BLUE_0};
+`;
+
+const NormalText = styled.Text`
   color: ${(props) => props.theme.fontColor};
 `;
 
@@ -108,10 +109,12 @@ const Photo: React.FC<seeFeed_seeFeed> = ({
 }) => {
   const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } =
     Dimensions.get("window");
-  const navigation =
-    useNavigation<NativeStackNavigationProp<ShareStackNavParamList, "Feed">>();
-
   const theme = useTheme();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<ShareStackNavParamList, "Photo">>();
+  const goToProfile = () => {
+    navigation.navigate("Profile", { username: user.username, id: user.id });
+  };
   const [imageHeight, setImageHeight] = useState(SCREEN_HEIGHT / 3);
   useEffect(() => {
     Image.getSize(file, (width, height) => {
@@ -168,17 +171,8 @@ const Photo: React.FC<seeFeed_seeFeed> = ({
 
   return (
     <Container key={id}>
-      <Header onPress={() => navigation.navigate("Profile")}>
-        {user.avatar && (
-          <UserAvatar
-            source={{ uri: user.avatar }}
-            resizeMode="cover"
-            style={{
-              borderColor: theme.tabBarBrodrColor,
-              borderWidth: 0.2,
-            }}
-          />
-        )}
+      <Header onPress={goToProfile}>
+        {user.avatar && <Avatar avatar={user.avatar} size={25} />}
         <Username>{user.username}</Username>
       </Header>
       {file && (
@@ -213,7 +207,13 @@ const Photo: React.FC<seeFeed_seeFeed> = ({
           </Action>
         </Actions>
 
-        <Likes onPress={() => navigation.navigate("Likes")}>
+        <Likes
+          onPress={() =>
+            navigation.navigate("Likes", {
+              photoId: id,
+            })
+          }
+        >
           {likedBy ? (
             likes === 1 ? (
               <LikeCountContainer>
@@ -225,17 +225,9 @@ const Photo: React.FC<seeFeed_seeFeed> = ({
             ) : (
               <LikeCountContainer>
                 {likedBy.avatar ? (
-                  <UserAvatar
-                    source={{ uri: likedBy.avatar }}
-                    style={{
-                      borderColor: theme.tabBarBrodrColor,
-                      borderWidth: 0.2,
-                    }}
-                  />
+                  <Avatar avatar={likedBy.avatar} size={25} />
                 ) : (
-                  <DefaultAvatar>
-                    <Ionicons name="person" size={16} color={theme.fontColor} />
-                  </DefaultAvatar>
+                  <DefaultAvatar size={25} />
                 )}
 
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -253,10 +245,20 @@ const Photo: React.FC<seeFeed_seeFeed> = ({
           ) : null}
         </Likes>
         <Caption>
-          <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+          <TouchableOpacity onPress={goToProfile}>
             <Username>{user.username}</Username>
           </TouchableOpacity>
-          <CaptionText>{caption}</CaptionText>
+          <CaptionText>
+            {caption?.split(" ").map((word, index) =>
+              /#[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\w]+/.test(word) ? (
+                <HashTag key={index}>
+                  <HashTagText>{word} </HashTagText>
+                </HashTag>
+              ) : (
+                <NormalText key={index}>{word} </NormalText>
+              )
+            )}
+          </CaptionText>
         </Caption>
       </PhotoData>
     </Container>
