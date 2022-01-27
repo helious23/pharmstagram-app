@@ -15,6 +15,7 @@ export const STextInput = styled.TextInput<ITextInputProps>`
   border-radius: 4px;
   color: ${(props) => props.theme.fontColor};
   margin-bottom: ${(props) => (props.lastOne ? "15" : 8)}px;
+  z-index: 10;
 `;
 
 export const AuthPlaceholder = styled.Text<{ change: boolean }>`

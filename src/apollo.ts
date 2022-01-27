@@ -33,8 +33,8 @@ export const logUserOut = async () => {
 };
 
 const httpLink = createHttpLink({
-  // uri: "http://localhost:4000/graphql",
-  uri: "https://cowardly-liger-91.loca.lt/graphql",
+  uri: "http://localhost:4000/graphql",
+  // uri: "https://cowardly-liger-91.loca.lt/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -51,6 +51,12 @@ export const cache = new InMemoryCache({
     Query: {
       fields: {
         seeFeed: {
+          keyArgs: false,
+          merge(existing = [], incoming: any[]) {
+            return [...existing, ...incoming];
+          },
+        },
+        searchPhotos: {
           keyArgs: false,
           merge(existing = [], incoming: any[]) {
             return [...existing, ...incoming];

@@ -25,7 +25,9 @@ export type ShareStackNavParamList = {
     username: string;
     id: number;
   };
-  Photo: undefined;
+  PhotoDetail: {
+    id: number;
+  };
   Likes: { photoId: number };
   Comments: undefined;
 };

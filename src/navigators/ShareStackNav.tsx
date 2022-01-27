@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Photo from "../screens/PhotoDetail";
+import PhotoDetail from "../screens/PhotoDetail";
 import Profile from "../screens/Profile";
 import { ShareStackNavParamList } from "../navTypes";
 import Feed from "../screens/Feed";
@@ -81,7 +81,7 @@ const ShareStackNav: React.FC<IShareStackNavProps> = ({ screenName }) => {
             />
           ) : null}
           <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="Photo" component={Photo} />
+          <Stack.Screen name="PhotoDetail" component={PhotoDetail} />
           <Stack.Screen name="Likes" component={Likes} />
           <Stack.Screen name="Comments" component={Comments} />
         </Stack.Navigator>

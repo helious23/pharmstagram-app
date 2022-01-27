@@ -1,6 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Dimensions, Image, Text, View, TouchableOpacity } from "react-native";
+import {
+  Dimensions,
+  Image,
+  Text,
+  View,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import styled from "styled-components/native";
 import { seeFeed_seeFeed } from "../__generated__/seeFeed";
 import { useTheme } from "styled-components/native";
@@ -18,6 +25,7 @@ import {
 import { toggleLike, toggleLikeVariables } from "../__generated__/toggleLike";
 import DefaultAvatar from "./DefaultAvatar";
 import Avatar from "./Avatar";
+import { seePhoto_seePhoto } from "../__generated__/seePhoto";
 
 const TOGGLE_LIKE_MUTATION = gql`
   mutation toggleLike($id: Int!) {
@@ -98,7 +106,25 @@ const NormalText = styled.Text`
   color: ${(props) => props.theme.fontColor};
 `;
 
-const Photo: React.FC<seeFeed_seeFeed> = ({
+type PhotoProps = Pick<
+  seeFeed_seeFeed | seePhoto_seePhoto,
+  | "id"
+  | "user"
+  | "caption"
+  | "file"
+  | "isLiked"
+  | "likes"
+  | "likedBy"
+  | "comments"
+  | "commentNumber"
+  | "createdAt"
+>;
+
+interface IPhotoProps extends PhotoProps {
+  fullView?: boolean;
+}
+
+const Photo: React.FC<IPhotoProps> = ({
   id,
   user,
   caption,
@@ -106,12 +132,18 @@ const Photo: React.FC<seeFeed_seeFeed> = ({
   isLiked,
   likes,
   likedBy,
+  comments,
+  commentNumber,
+  createdAt,
+  fullView,
 }) => {
   const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } =
     Dimensions.get("window");
   const theme = useTheme();
   const navigation =
-    useNavigation<NativeStackNavigationProp<ShareStackNavParamList, "Photo">>();
+    useNavigation<
+      NativeStackNavigationProp<ShareStackNavParamList, "Profile">
+    >();
   const goToProfile = () => {
     navigation.navigate("Profile", { username: user.username, id: user.id });
   };
@@ -261,6 +293,20 @@ const Photo: React.FC<seeFeed_seeFeed> = ({
           </CaptionText>
         </Caption>
       </PhotoData>
+      {fullView
+        ? comments?.map((comment) => {
+            return (
+              <View key={comment?.id} style={{ flexDirection: "row" }}>
+                <Text style={{ color: theme.fontColor }}>
+                  {comment?.user.username}
+                </Text>
+                <Text style={{ color: theme.fontColor }}>
+                  {comment?.payload}
+                </Text>
+              </View>
+            );
+          })
+        : null}
     </Container>
   );
 };

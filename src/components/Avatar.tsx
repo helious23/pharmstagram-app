@@ -1,6 +1,10 @@
 import styled, { useTheme } from "styled-components/native";
 
-const SAvatar = styled.Image<{ size: number }>`
+interface SAvatarProps {
+  size: number;
+}
+
+const SAvatar = styled.Image<SAvatarProps>`
   margin-right: 10px;
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
@@ -10,9 +14,10 @@ const SAvatar = styled.Image<{ size: number }>`
 interface IAvatarProps {
   avatar: string;
   size: number;
+  focused?: boolean;
 }
 
-const Avatar: React.FC<IAvatarProps> = ({ avatar, size }) => {
+const Avatar: React.FC<IAvatarProps> = ({ avatar, size, focused }) => {
   const theme = useTheme();
   return (
     <SAvatar
@@ -20,8 +25,8 @@ const Avatar: React.FC<IAvatarProps> = ({ avatar, size }) => {
       source={{ uri: avatar }}
       resizeMode="cover"
       style={{
-        borderColor: theme.tabBarBrodrColor,
-        borderWidth: 0.2,
+        borderColor: focused ? theme.fontColor : theme.tabBarBrodrColor,
+        borderWidth: focused ? 1 : 0.2,
       }}
     />
   );

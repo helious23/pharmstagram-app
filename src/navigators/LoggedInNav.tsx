@@ -4,10 +4,14 @@ import { LoggedInNavParamList } from "../navTypes";
 import { View } from "react-native";
 import TabIcon from "../components/nav/TabIcon";
 import StackNavFactory from "./ShareStackNav";
+import { useUser } from "../hooks/useUser";
+import Avatar from "../components/Avatar";
 
 const Tabs = createBottomTabNavigator<LoggedInNavParamList>();
 
 const LoggedInNav = () => {
+  const { data } = useUser();
+
   return (
     <ThemeConsumer>
       {(theme) => (
@@ -90,15 +94,18 @@ const LoggedInNav = () => {
           <Tabs.Screen
             name="TabMe"
             options={{
-              tabBarIcon: ({ color, focused, size }) => (
-                <TabIcon
-                  color={color}
-                  focused={focused}
-                  size={size}
-                  iconName="person"
-                  focusedIconName="person-outline"
-                />
-              ),
+              tabBarIcon: ({ color, focused, size }) =>
+                data?.me?.avatar ? (
+                  <Avatar avatar={data.me.avatar} size={30} focused={focused} />
+                ) : (
+                  <TabIcon
+                    color={color}
+                    focused={focused}
+                    size={size}
+                    iconName="person"
+                    focusedIconName="person-outline"
+                  />
+                ),
             }}
           >
             {() => <StackNavFactory screenName="Me" />}

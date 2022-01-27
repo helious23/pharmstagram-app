@@ -64,7 +64,7 @@ const Likes: React.FC<NativeStackScreenProps<ShareStackNavParamList, "Likes">> =
                 height: 0.8,
                 backgroundColor: theme.formBorderColor,
               }}
-            ></View>
+            />
           )}
           data={data?.seePhotoLikes}
           keyExtractor={keyExtractor}

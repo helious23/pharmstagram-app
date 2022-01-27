@@ -1,12 +1,20 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import { useTheme } from "styled-components/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ShareStackNavParamList } from "../navTypes";
+import { useEffect } from "react";
 
 const Profile: React.FC<
   NativeStackScreenProps<ShareStackNavParamList, "Profile">
-> = ({ route }) => {
-  console.log(route);
+> = ({ route, navigation }) => {
+  useEffect(() => {
+    if (route.params.username) {
+      navigation.setOptions({
+        headerTitle: route.params.username,
+      });
+    }
+  }, []);
+
   const theme = useTheme();
   return (
     <View
