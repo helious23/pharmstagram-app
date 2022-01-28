@@ -123,8 +123,6 @@ const Profile: React.FC<
     }
   );
 
-  console.log(data);
-
   useEffect(() => {
     if (route.params.username) {
       navigation.setOptions({

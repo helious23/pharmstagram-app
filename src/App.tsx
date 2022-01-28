@@ -43,8 +43,8 @@ export default function App() {
       cache,
       storage: new AsyncStorageWrapper(AsyncStorage),
     });
-    // await persistor.purge();
-    await persistor.restore();
+    await persistor.purge();
+    // await persistor.restore();
     preloadAssets();
   };
 

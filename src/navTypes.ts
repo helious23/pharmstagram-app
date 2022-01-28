@@ -8,12 +8,17 @@ export type LoggedOutNavParamList = {
   CreateAccount: undefined;
 };
 
-export type LoggedInNavParamList = {
+export type TabsNavParamList = {
   TabFeed: undefined;
   TabSearch: undefined;
   Camera: undefined;
   TabNotifications: undefined;
   TabMe: undefined;
+};
+
+export type LoggedInNavParamList = {
+  TabsNav: undefined;
+  UploadNav: undefined;
 };
 
 export type ShareStackNavParamList = {
@@ -30,4 +35,9 @@ export type ShareStackNavParamList = {
   };
   Likes: { photoId: number };
   Comments: undefined;
+};
+
+export type MaterialTabNavParamList = {
+  SelectPhoto: undefined;
+  TakePhoto: undefined;
 };
