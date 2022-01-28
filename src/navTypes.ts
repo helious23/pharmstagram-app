@@ -38,6 +38,10 @@ export type ShareStackNavParamList = {
 };
 
 export type MaterialTabNavParamList = {
-  SelectPhoto: undefined;
-  TakePhoto: undefined;
+  Select: undefined;
+  Take: undefined;
+};
+
+export type SelectPhotoStackNavParamList = {
+  StackSelect: undefined;
 };

@@ -6,6 +6,10 @@
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Give $(PRODUCT_NAME) permission to access your photos</string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>Give $(PRODUCT_NAME) permission to save photos</string>
 		<key>CFBundleIdentifier</key>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 		<key>CFBundleInfoDictionaryVersion</key>

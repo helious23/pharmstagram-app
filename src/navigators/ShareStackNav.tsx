@@ -54,6 +54,7 @@ const ShareStackNav: React.FC<IShareStackNavProps> = ({ screenName }) => {
                     }
                   />
                 ),
+                headerTitleAlign: "center",
               }}
             />
           ) : null}

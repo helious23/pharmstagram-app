@@ -3,17 +3,20 @@ PODS:
   - DoubleConversion (1.1.6)
   - EXApplication (4.0.1):
     - ExpoModulesCore
-  - EXConstants (13.0.0):
+  - EXConstants (13.0.1):
     - ExpoModulesCore
-  - EXFileSystem (13.1.0):
+  - EXFileSystem (13.1.2):
     - ExpoModulesCore
   - EXFont (10.0.4):
     - ExpoModulesCore
   - EXJSONUtils (0.2.0)
   - EXKeepAwake (10.0.1):
     - ExpoModulesCore
-  - EXManifests (0.2.2):
+  - EXManifests (0.2.3):
     - EXJSONUtils
+  - EXMediaLibrary (14.0.0):
+    - ExpoModulesCore
+    - React-Core
   - Expo (44.0.5):
     - ExpoModulesCore
   - expo-dev-client (0.8.2):
@@ -367,7 +370,7 @@ PODS:
     - React-cxxreact (= 0.64.3)
     - React-jsi (= 0.64.3)
     - React-perflogger (= 0.64.3)
-  - RNCAsyncStorage (1.15.16):
+  - RNCAsyncStorage (1.15.17):
     - React-Core
   - RNScreens (3.10.2):
     - React-Core
@@ -383,6 +386,7 @@ DEPENDENCIES:
   - EXJSONUtils (from `../node_modules/expo-json-utils/ios`)
   - EXKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - EXManifests (from `../node_modules/expo-manifests/ios`)
+  - EXMediaLibrary (from `../node_modules/expo-media-library/ios`)
   - Expo (from `../node_modules/expo/ios`)
   - expo-dev-client (from `../node_modules/expo-dev-client/ios`)
   - expo-dev-launcher (from `../node_modules/expo-dev-launcher`)
@@ -448,6 +452,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-keep-awake/ios"
   EXManifests:
     :path: "../node_modules/expo-manifests/ios"
+  EXMediaLibrary:
+    :path: "../node_modules/expo-media-library/ios"
   Expo:
     :path: "../node_modules/expo/ios"
   expo-dev-client:
@@ -535,12 +541,13 @@ SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   EXApplication: bdc8dc27713235565da1029a34385229f31b8e08
-  EXConstants: 5d18484e38e8eacef7695a82214b6ac90133dedf
-  EXFileSystem: 7d1309ba6b38b82ef7fc9e80174de3f9184ac8b4
+  EXConstants: 6966f4fa7a22770dd240a66d029819ff94c748c9
+  EXFileSystem: e8013deaa114cab168a6f53be956b9334c3d02cf
   EXFont: 1fb13af43dc517c01c0ff21a6e32f9f9bf2ea602
   EXJSONUtils: f515cf71710855d7ba5bfc6752af3b9a6f6aad01
   EXKeepAwake: b571c2ad8323b2fced6e907766e2549f75119471
-  EXManifests: 50e42e01335df4e54109dee7be5a91bfd37347db
+  EXManifests: d854c4d16fde48a19a2c2b6785b303177597bd08
+  EXMediaLibrary: 6acf919299bccc64a59e6e89a3b792276e309302
   Expo: 337c72b7e9314e93023af79c875930db8e008275
   expo-dev-client: 76a1e3dbd2cdfca4317074a8aa3b5c28e3978d0e
   expo-dev-launcher: d8abf8712b42eed057a57222f76c1b4d1c42bbc9
@@ -579,7 +586,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: c7f845861e79eae13dc1e8217a3cf47a3945b504
   React-runtimeexecutor: 493d9abb8b23c3f84e19ae221eeba92cadcb70dc
   ReactCommon: 8fea6422328e2fc093e25c9fac67adbcf0f04fb4
-  RNCAsyncStorage: 6ed7eefcf176fee8cd7039a44ca56f0247a650bb
+  RNCAsyncStorage: 6bd5a7ba3dde1c3facba418aa273f449bdc5437a
   RNScreens: d6da2b9e29cf523832c2542f47bf1287318b1868
   Yoga: e6ecf3fa25af9d4c87e94ad7d5d292eedef49749
 

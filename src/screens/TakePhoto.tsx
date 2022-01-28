@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { MaterialTabNavParamList } from "../navTypes";
 
 const TakePhoto: React.FC<
-  MaterialTopTabScreenProps<MaterialTabNavParamList, "TakePhoto">
+  MaterialTopTabScreenProps<MaterialTabNavParamList, "Take">
 > = () => {
   return <View></View>;
 };
