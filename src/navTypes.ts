@@ -1,3 +1,5 @@
+import { NavigatorScreenParams } from "@react-navigation/native";
+
 export type LoggedOutNavParamList = {
   Welcome: undefined;
   Login: {
@@ -19,6 +21,7 @@ export type TabsNavParamList = {
 export type LoggedInNavParamList = {
   TabsNav: undefined;
   UploadNav: undefined;
+  UploadForm: { file: string };
 };
 
 export type ShareStackNavParamList = {

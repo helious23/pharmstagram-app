@@ -10,6 +10,8 @@ export const darkTheme: DefaultTheme = {
   tabBarBtnColor: "white",
   tabBarBrodrColor: "rgba(255, 255, 255, 0.5)",
   likeHeartColor: "tomato",
+  cameraBtnColor: "rgba(255, 255, 255, 0.7)",
+  cameraBtnBorderColor: "rgb(255, 255, 255)",
   BLUE: {
     BLUE_0: "#0095f6",
   },
@@ -25,6 +27,8 @@ export const lightTheme: DefaultTheme = {
   tabBarBtnColor: "black",
   tabBarBrodrColor: "rgba(0, 0, 0, 0.5)",
   likeHeartColor: "tomato",
+  cameraBtnColor: "rgba(0, 0, 0, 0.3)",
+  cameraBtnBorderColor: "rgba(0, 0, 0, 0.6)",
   BLUE: {
     BLUE_0: "#0095f6",
   },

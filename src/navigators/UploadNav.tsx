@@ -29,7 +29,12 @@ const UploadNav = () => {
             },
           }}
         >
-          <MaterialTab.Screen name="Select">
+          <MaterialTab.Screen
+            name="Select"
+            options={{
+              title: "사진 선택 하기",
+            }}
+          >
             {({ navigation }) => (
               <Stack.Navigator
                 screenOptions={{
@@ -58,7 +63,13 @@ const UploadNav = () => {
               </Stack.Navigator>
             )}
           </MaterialTab.Screen>
-          <MaterialTab.Screen name="Take" component={TakePhoto} />
+          <MaterialTab.Screen
+            name="Take"
+            component={TakePhoto}
+            options={{
+              title: "사진 촬영 하기",
+            }}
+          />
         </MaterialTab.Navigator>
       )}
     </ThemeConsumer>

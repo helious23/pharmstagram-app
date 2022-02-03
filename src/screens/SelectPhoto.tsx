@@ -1,17 +1,22 @@
 import * as MediaLibrary from "expo-media-library";
 import styled from "styled-components/native";
-import { SelectPhotoStackNavParamList } from "../navTypes";
+import {
+  SelectPhotoStackNavParamList,
+  LoggedInNavParamList,
+} from "../navTypes";
 import { useEffect, useState } from "react";
 import {
-  Alert,
   FlatList,
   Image,
+  StatusBar,
   TouchableOpacity,
   useWindowDimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { ActivityIndicator } from "react-native";
+import { CompositeScreenProps } from "@react-navigation/native";
 
 const Container = styled.View`
   flex: 1;
@@ -40,10 +45,14 @@ const HeaderRightText = styled.Text`
   color: ${(props) => props.theme.BLUE.BLUE_0};
   font-size: 16px;
   font-weight: 600;
+  margin-right: 10px;
 `;
 
 const SelectPhoto: React.FC<
-  NativeStackScreenProps<SelectPhotoStackNavParamList, "StackSelect">
+  CompositeScreenProps<
+    NativeStackScreenProps<SelectPhotoStackNavParamList>,
+    NativeStackScreenProps<LoggedInNavParamList>
+  >
 > = ({ navigation }) => {
   const numColumns = 4;
   const theme = useTheme();
@@ -82,7 +91,7 @@ const SelectPhoto: React.FC<
 
   const getPermissions = async () => {
     const { status, canAskAgain } = await MediaLibrary.getPermissionsAsync();
-    if (status === MediaLibrary.PermissionStatus.DENIED && canAskAgain) {
+    if (status !== MediaLibrary.PermissionStatus.GRANTED && canAskAgain) {
       const { status } = await MediaLibrary.requestPermissionsAsync();
       if (status !== "undetermined") {
         setOk(true);
@@ -95,7 +104,9 @@ const SelectPhoto: React.FC<
   };
 
   const HeaderRight = () => (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("UploadForm", { file: chosenPhoto })}
+    >
       <HeaderRightText>다음</HeaderRightText>
     </TouchableOpacity>
   );
@@ -108,7 +119,7 @@ const SelectPhoto: React.FC<
     navigation.setOptions({
       headerRight: HeaderRight,
     });
-  }, []);
+  }, [chosenPhoto]);
 
   const choosePhoto = (uri: string) => {
     setChosenPhoto(uri);
@@ -135,24 +146,33 @@ const SelectPhoto: React.FC<
 
   return (
     <Container>
+      <StatusBar hidden={false} />
       <Top>
         {chosenPhoto !== "" ? (
           <Image
             source={{ uri: chosenPhoto }}
             style={{ width: SCREEN_WIDTH, height: "100%" }}
           />
-        ) : null}
+        ) : (
+          <ActivityIndicator
+            color={theme.fontColor}
+            size="large"
+            style={{ flex: 1, justifyContent: "center" }}
+          />
+        )}
       </Top>
-      <Bottom>
-        <FlatList
-          data={photos}
-          onEndReachedThreshold={1}
-          onEndReached={() => getMorePhotos()}
-          keyExtractor={(photo) => photo.id}
-          renderItem={renderItem}
-          numColumns={numColumns}
-        />
-      </Bottom>
+      {photos ? (
+        <Bottom>
+          <FlatList
+            data={photos}
+            onEndReachedThreshold={1}
+            onEndReached={() => getMorePhotos()}
+            keyExtractor={(photo) => photo.id}
+            renderItem={renderItem}
+            numColumns={numColumns}
+          />
+        </Bottom>
+      ) : null}
     </Container>
   );
 };

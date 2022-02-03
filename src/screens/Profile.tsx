@@ -1,4 +1,4 @@
-import { Text, useWindowDimensions, View } from "react-native";
+import { useWindowDimensions } from "react-native";
 import styled, { useTheme } from "styled-components/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ShareStackNavParamList } from "../navTypes";

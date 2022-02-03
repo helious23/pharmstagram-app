@@ -12,6 +12,8 @@ declare module "styled-components" {
     tabBarBtnColor: string;
     tabBarBrodrColor: string;
     likeHeartColor: string;
+    cameraBtnColor: string;
+    cameraBtnBorderColor: string;
     BLUE: {
       BLUE_0: string;
     };
